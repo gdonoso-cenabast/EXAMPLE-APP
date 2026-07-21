@@ -46,7 +46,7 @@ pipeline {
                         // Dado que el Quality Gate es 'Laxo', siempre aprobará y procederá a desplegar.
                         echo 'Quality Gate APROBADO. Desplegando...'
                         // Reinicia el servidor web Nginx para que cargue los nuevos archivos compilados en dist
-                        sh 'docker compose restart frontend'
+                        sh 'docker restart frontend'
                     } catch (Exception e) {
                         // Si ocurriera algún fallo, se inicia la rutina de Rollback automático
                         echo 'Quality Gate REPROBADO. Ejecutando Rollback...'
@@ -55,7 +55,7 @@ pipeline {
                         // Recompila usando la ruta absoluta de npm
                         sh '/usr/bin/npm install && /usr/bin/npm run build'
                         // Reinicia Nginx con la versión anterior estable
-                        sh 'docker compose restart frontend'
+                        sh 'docker restart frontend'
                         // Aborta la ejecución marcando el Pipeline de Jenkins como fallido
                         error "Pipeline abortado. Se ejecuto Rollback."
                     }
