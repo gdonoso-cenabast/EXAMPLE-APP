@@ -5,7 +5,7 @@ const app: HTMLDivElement = document.getElementById('app') as HTMLDivElement;
 const titulo: HTMLHeadingElement = document.createElement('h1');
 
 titulo.style.fontWeight = 'bold';
-titulo.style.color = 'blue';
-titulo.textContent = 'Example App';
+titulo.style.color = 'red';
+titulo.textContent = 'Example App - GONZALO';
 
 app.appendChild(titulo);
