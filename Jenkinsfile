@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Iniciando compilacion...'
                 // Usamos la ruta absoluta de npm (/usr/bin/npm) para evitar problemas de PATH en el entorno de Jenkins
-                sh '/usr/bin/npm install && /usr/bin/npm run build'
+                sh '/usr/bin/npm install && /usr/bin/npm run build && cp -R dist/* /var/deploy/frontend/'
             }
         }
 
@@ -52,8 +52,8 @@ pipeline {
                         echo 'Quality Gate REPROBADO. Ejecutando Rollback...'
                         // Revierte el repositorio al commit inmediatamente anterior (el último estable en Git)
                         sh 'git checkout HEAD~1'
-                        // Recompila usando la ruta absoluta de npm
-                        sh '/usr/bin/npm install && /usr/bin/npm run build'
+                        // Recompila usando la ruta absoluta de npm e implementa la copia
+                        sh '/usr/bin/npm install && /usr/bin/npm run build && cp -R dist/* /var/deploy/frontend/'
                         // Reinicia Nginx con la versión anterior estable
                         sh 'docker restart frontend'
                         // Aborta la ejecución marcando el Pipeline de Jenkins como fallido
