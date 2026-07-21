@@ -6,6 +6,6 @@ const titulo: HTMLHeadingElement = document.createElement('h1');
 
 titulo.style.fontWeight = 'bold';
 titulo.style.color = 'red';
-titulo.textContent = 'Example App - GONZALO DONOSO';
+titulo.textContent = 'Example App - GONZALO DONOSO RAMIREZ';
 
 app.appendChild(titulo);
