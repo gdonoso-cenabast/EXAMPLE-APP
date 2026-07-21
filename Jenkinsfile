@@ -10,8 +10,8 @@ pipeline {
         stage('1. Compilacion') {
             steps {
                 echo 'Iniciando compilacion...'
-                // Instalamos dependencias y compilamos de forma nativa en el entorno de Jenkins
-                sh 'npm install && npm run build'
+                // Usamos la ruta absoluta de npm (/usr/bin/npm) para evitar problemas de PATH en el entorno de Jenkins
+                sh '/usr/bin/npm install && /usr/bin/npm run build'
             }
         }
 
@@ -52,8 +52,8 @@ pipeline {
                         echo 'Quality Gate REPROBADO. Ejecutando Rollback...'
                         // Revierte el repositorio al commit inmediatamente anterior (el último estable en Git)
                         sh 'git checkout HEAD~1'
-                        // Recompila de forma nativa la versión anterior
-                        sh 'npm install && npm run build'
+                        // Recompila usando la ruta absoluta de npm
+                        sh '/usr/bin/npm install && /usr/bin/npm run build'
                         // Reinicia Nginx con la versión anterior estable
                         sh 'docker compose restart frontend'
                         // Aborta la ejecución marcando el Pipeline de Jenkins como fallido
